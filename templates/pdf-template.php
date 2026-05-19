@@ -17,7 +17,7 @@
     <title><?php echo esc_html($title); ?></title>
     <style>
         @page {
-            margin: 2.2cm 2cm 2.2cm 2cm;
+            margin: 2.8cm 2cm 2.2cm 2cm;
         }
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -28,33 +28,29 @@
         /* Marca de agua centrada en cada página */
         #watermark {
             position: fixed;
-            top: 50%;
-            left: 50%;
+            top: 25%;
+            left: 15%;
             width: 70%;
             height: auto;
-            margin-left: -35%; /* Centrado horizontal */
-            margin-top: -35%;  /* Centrado vertical aproximado */
-            opacity: 0.05;
+            opacity: 0.12;
             z-index: -1000;
         }
         .header {
+            position: fixed;
+            top: -1.8cm;
+            left: 0px;
+            right: 0px;
+            height: 45px;
             border-bottom: 2px solid #34495e;
-            padding-bottom: 10px;
-            margin-bottom: 25px;
         }
         .logo {
-            font-size: 16pt;
-            font-weight: bold;
-            color: #2c3e50;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+            float: left;
         }
         .header-meta {
             float: right;
-            font-size: 9pt;
+            font-size: 9.5pt;
             color: #7f8c8d;
-            text-align: right;
-            margin-top: 5px;
+            margin-top: 10px;
         }
         .test-title {
             font-size: 20pt;
@@ -151,9 +147,8 @@
     <!-- Encabezado -->
     <div class="header">
         <div class="header-meta">
-            <strong>Tipo:</strong> <?php echo esc_html($type); ?><br>
-            <strong>Duración:</strong> <?php echo esc_html($duration); ?> min<br>
-            <strong>Preguntas:</strong> <?php echo count($questions); ?>
+            <span><strong>Duración:</strong> <?php echo esc_html($duration); ?> min</span>
+            <span style="margin-left: 20px;"><strong>Preguntas:</strong> <?php echo count($questions); ?></span>
         </div>
         <div class="logo">
             <?php if (!empty($logo_path) && file_exists($logo_path)) : ?>
@@ -166,13 +161,11 @@
 
     <!-- Título del Examen -->
     <div class="test-title"><?php echo esc_html($title); ?></div>
-    <div class="test-subtitle">
-        <?php if ($with_answers) : ?>
+    <?php if ($with_answers) : ?>
+        <div class="test-subtitle">
             <strong style="color: #27ae60;">SOLUCIONARIO Y EXPLICACIONES</strong> - Documento de revisión pedagógica.
-        <?php else : ?>
-            Documento de examen para realización en papel. Marque la opción correcta para cada una de las siguientes preguntas.
-        <?php endif; ?>
-    </div>
+        </div>
+    <?php endif; ?>
 
     <!-- Contenedor de Preguntas -->
     <div class="questions-container">
@@ -192,10 +185,8 @@
                             $letter = isset($letters[$o_idx]) ? $letters[$o_idx] : chr(97 + $o_idx);
                             $is_correct_opt = $with_answers && !empty($opt['correct']);
                             $option_class = $is_correct_opt ? 'option-item option-correct' : 'option-item';
-                            $checkbox_class = $is_correct_opt ? 'checkbox checkbox-correct' : 'checkbox';
                             ?>
                             <div class="<?php echo $option_class; ?>">
-                                <span class="<?php echo $checkbox_class; ?>"></span>
                                 <strong><?php echo esc_html(strtoupper($letter)); ?>)</strong> <?php echo esc_html($opt['option']); ?>
                             </div>
                         <?php endforeach; ?>
