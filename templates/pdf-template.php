@@ -9,6 +9,61 @@
  * - $with_answers: Booleano indicando si se incluye solucionario
  * - $watermark_path: Ruta absoluta al archivo SVG de marca de agua
  */
+
+if (!function_exists('spn_get_clock_icon_base64')) {
+    function spn_get_clock_icon_base64() {
+        $im = imagecreatetruecolor(16, 16);
+        imagealphablending($im, false);
+        imagesavealpha($im, true);
+        
+        $trans = imagecolorallocatealpha($im, 0, 0, 0, 127);
+        imagefill($im, 0, 0, $trans);
+        
+        $color = imagecolorallocate($im, 127, 140, 141);
+        
+        // Círculo del reloj
+        imageellipse($im, 8, 8, 14, 14, $color);
+        imageellipse($im, 8, 8, 13, 13, $color);
+        imagesetpixel($im, 8, 8, $color);
+        // Agujas
+        imageline($im, 8, 8, 8, 4, $color);
+        imageline($im, 8, 8, 11, 8, $color);
+        
+        ob_start();
+        imagepng($im);
+        $data = ob_get_clean();
+        imagedestroy($im);
+        
+        return 'data:image/png;base64,' . base64_encode($data);
+    }
+}
+
+if (!function_exists('spn_get_doc_icon_base64')) {
+    function spn_get_doc_icon_base64() {
+        $im = imagecreatetruecolor(16, 16);
+        imagealphablending($im, false);
+        imagesavealpha($im, true);
+        
+        $trans = imagecolorallocatealpha($im, 0, 0, 0, 127);
+        imagefill($im, 0, 0, $trans);
+        
+        $color = imagecolorallocate($im, 127, 140, 141);
+        
+        // Bordes del documento
+        imagerectangle($im, 3, 2, 12, 13, $color);
+        // Líneas de texto del documento
+        imageline($im, 5, 5, 10, 5, $color);
+        imageline($im, 5, 8, 10, 8, $color);
+        imageline($im, 5, 11, 8, 11, $color);
+        
+        ob_start();
+        imagepng($im);
+        $data = ob_get_clean();
+        imagedestroy($im);
+        
+        return 'data:image/png;base64,' . base64_encode($data);
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -120,14 +175,21 @@
         .explanation-block {
             border-left: 3px solid #27ae60;
             padding: 0 0 0 10px;
-            margin-top: 8px;
+            margin-top: 15px;
             font-size: 8.5pt;
             color: #5d6d7e;
+        }
+        .explanation-block p {
+            margin-top: 0;
+            margin-bottom: 4px;
+        }
+        .explanation-block p:last-child {
+            margin-bottom: 0;
         }
         .explanation-title {
             font-weight: bold;
             color: #27ae60;
-            margin-bottom: 3px;
+            margin-bottom: 4px;
             font-size: 9pt;
         }
         .footer {
@@ -155,11 +217,11 @@
     <div class="header">
         <div class="header-meta">
             <span style="vertical-align: middle;">
-                <span class="icon">&#9200;</span>
+                <img src="<?php echo spn_get_clock_icon_base64(); ?>" style="width: 12px; height: 12px; vertical-align: middle; margin-right: 2px;" />
                 <span style="vertical-align: middle;"><?php echo esc_html($duration); ?> min</span>
             </span>
             <span style="margin-left: 15px; vertical-align: middle;">
-                <span class="icon">?</span>
+                <img src="<?php echo spn_get_doc_icon_base64(); ?>" style="width: 12px; height: 12px; vertical-align: middle; margin-right: 2px;" />
                 <span style="vertical-align: middle;"><?php echo count($questions); ?></span>
             </span>
         </div>
