@@ -277,14 +277,18 @@ if (!function_exists('spn_get_doc_icon_base64')) {
                         </div>
                     </div>
 
-                    <?php if ($with_answers && !empty($q['explanation'])) : ?>
+                    <?php 
+                    $cleaned_explanation = '';
+                    if ($with_answers && !empty($q['explanation'])) {
+                        $cleaned_explanation = preg_replace('/<p[^>]*>(\s|&nbsp;|<br\s*\/?>)*<\/p>/i', '', $q['explanation']);
+                        $cleaned_explanation = trim($cleaned_explanation);
+                    }
+                    if (!empty($cleaned_explanation)) : 
+                    ?>
                         <div class="explanation-block">
                             <div class="explanation-title">Explicación:</div>
                             <div>
-                                <?php 
-                                // Renderizar el contenido HTML directo de la explicación
-                                echo $q['explanation']; 
-                                ?>
+                                <?php echo $cleaned_explanation; ?>
                             </div>
                         </div>
                     <?php endif; ?>
