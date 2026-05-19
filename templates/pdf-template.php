@@ -194,12 +194,11 @@ if (!function_exists('spn_get_doc_icon_base64')) {
         }
         .footer {
             position: fixed;
-            bottom: -1cm;
-            left: 0px;
-            right: 0px;
+            bottom: -1.2cm;
+            left: 2cm;
+            right: 2cm;
             height: 30px;
             border-top: 1px solid #e2e8f0;
-            text-align: center;
             font-size: 8pt;
             color: #a0aec0;
             line-height: 30px;
@@ -282,7 +281,7 @@ if (!function_exists('spn_get_doc_icon_base64')) {
     </div>
 
     <div class="footer">
-        &copy; <?php echo date('Y'); ?> Seguimiento PN - Todos los derechos reservados.
+        <span style="float: left;">&copy; <?php echo date('Y'); ?> Seguimiento PN - Todos los derechos reservados.</span>
     </div>
 
 </body>

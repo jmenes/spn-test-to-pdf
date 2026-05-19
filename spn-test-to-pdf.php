@@ -172,6 +172,15 @@ function spn_ttp_handle_pdf_generation() {
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
         
+        // Agregar numeración de página "X / Y" en el pie de página
+        $canvas = $dompdf->getCanvas();
+        if ($canvas) {
+            $fontMetrics = $dompdf->getFontMetrics();
+            $font = $fontMetrics->get_font('helvetica', 'normal');
+            // X=515 y Y=802 colocan el texto "PÁGINA / TOTAL" alineado con el pie de página
+            $canvas->page_text(515, 802, '{PAGE_NUM} / {PAGE_COUNT}', $font, 8, [160/255, 174/255, 192/255]);
+        }
+        
         $suffix = $with_answers ? '-solucionario' : '-examen';
         $filename = sanitize_title($title) . $suffix . '.pdf';
         
