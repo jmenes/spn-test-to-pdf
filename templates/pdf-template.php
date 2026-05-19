@@ -280,8 +280,18 @@ if (!function_exists('spn_get_doc_icon_base64')) {
                     <?php 
                     $cleaned_explanation = '';
                     if ($with_answers && !empty($q['explanation'])) {
-                        $cleaned_explanation = preg_replace('/<p[^>]*>(\s|&nbsp;|<br\s*\/?>)*<\/p>/i', '', $q['explanation']);
-                        $cleaned_explanation = trim($cleaned_explanation);
+                        $html = $q['explanation'];
+                        // 1. Eliminar párrafos que estén completamente vacíos o contengan solo espacios/saltos
+                        $html = preg_replace('/<p[^>]*>(\s|&nbsp;|<br\s*\/?>)*<\/p>/i', '', $html);
+                        // 2. Eliminar saltos y espacios al inicio del contenido de cualquier párrafo <p...>
+                        $html = preg_replace('/(<p[^>]*>)(?:\s|&nbsp;|<br\s*\/?>)+/i', '$1', $html);
+                        // 3. Eliminar saltos y espacios al final del contenido de cualquier párrafo ...</p>
+                        $html = preg_replace('/(?:\s|&nbsp;|<br\s*\/?>)+(<\/p>)/i', '$1', $html);
+                        // 4. Eliminar saltos y espacios al inicio y final del HTML completo
+                        $html = preg_replace('/^(?:\s|&nbsp;|<br\s*\/?>)+/i', '', $html);
+                        $html = preg_replace('/(?:\s|&nbsp;|<br\s*\/?>)+$/i', '', $html);
+                        
+                        $cleaned_explanation = trim($html);
                     }
                     if (!empty($cleaned_explanation)) : 
                     ?>
