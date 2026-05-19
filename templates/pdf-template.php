@@ -44,8 +44,17 @@
             border-bottom: 1px solid #e2e8f0;
             padding-bottom: 8px;
         }
-        .logo {
+        .header-logo {
             float: left;
+            height: 38px;
+            width: auto;
+        }
+        .header-logo-text {
+            float: left;
+            font-weight: bold;
+            color: #2c3e50;
+            line-height: 38px;
+            font-size: 14pt;
         }
         .header-title-container {
             float: left;
@@ -146,28 +155,26 @@
     <div class="header">
         <div class="header-meta">
             <span style="vertical-align: middle;">
-                <span class="icon">&#9201;</span>
+                <span class="icon">&#9200;</span>
                 <span style="vertical-align: middle;"><?php echo esc_html($duration); ?> min</span>
             </span>
             <span style="margin-left: 15px; vertical-align: middle;">
-                <span class="icon">&#9776;</span>
+                <span class="icon">?</span>
                 <span style="vertical-align: middle;"><?php echo count($questions); ?></span>
             </span>
         </div>
-        <div class="logo">
-            <?php if (!empty($logo_path) && file_exists($logo_path)) : ?>
-                <img src="<?php echo $logo_path; ?>" style="height: 38px; width: auto; vertical-align: middle; float: left;" />
-            <?php else : ?>
-                <span style="font-weight: bold; float: left; line-height: 38px;">Seguimiento PN</span>
-            <?php endif; ?>
-            <div class="header-title-container">
-                <div class="header-title" style="<?php echo $with_answers ? 'line-height: 18px; margin-top: 2px;' : 'line-height: 38px;'; ?>">
-                    <?php echo esc_html($title); ?>
-                </div>
-                <?php if ($with_answers) : ?>
-                    <div class="header-solucionario-label">SOLUCIONARIO Y EXPLICACIONES</div>
-                <?php endif; ?>
+        <?php if (!empty($logo_path) && file_exists($logo_path)) : ?>
+            <img class="header-logo" src="<?php echo $logo_path; ?>" />
+        <?php else : ?>
+            <span class="header-logo-text">Seguimiento PN</span>
+        <?php endif; ?>
+        <div class="header-title-container">
+            <div class="header-title" style="<?php echo $with_answers ? 'line-height: 18px; margin-top: 2px;' : 'line-height: 38px;'; ?>">
+                <?php echo esc_html($title); ?>
             </div>
+            <?php if ($with_answers) : ?>
+                <div class="header-solucionario-label">SOLUCIONARIO Y EXPLICACIONES</div>
+            <?php endif; ?>
         </div>
     </div>
 
