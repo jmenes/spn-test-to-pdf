@@ -148,10 +148,17 @@ if (!function_exists('spn_get_doc_icon_base64')) {
             margin-top: 15px;
         }
         .question-block {
-            page-break-inside: avoid;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
             border-bottom: 1px solid #f1f2f6;
+        }
+        .question-block:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+        .question-main {
+            page-break-inside: avoid;
         }
         .question-title {
             font-weight: bold;
@@ -178,6 +185,7 @@ if (!function_exists('spn_get_doc_icon_base64')) {
             margin-top: 15px;
             font-size: 8.5pt;
             color: #5d6d7e;
+            page-break-inside: avoid;
         }
         .explanation-block p {
             margin-top: 0;
@@ -249,22 +257,24 @@ if (!function_exists('spn_get_doc_icon_base64')) {
         <?php else : ?>
             <?php foreach ($questions as $index => $q) : ?>
                 <div class="question-block">
-                    <div class="question-title">
-                        <?php echo ($index + 1) . '. ' . esc_html($q['title']); ?>
-                    </div>
-                    
-                    <div class="options-list">
-                        <?php 
-                        $letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
-                        foreach ($q['options'] as $o_idx => $opt) : 
-                            $letter = isset($letters[$o_idx]) ? $letters[$o_idx] : chr(97 + $o_idx);
-                            $is_correct_opt = $with_answers && !empty($opt['correct']);
-                            $option_class = $is_correct_opt ? 'option-item option-correct' : 'option-item';
-                            ?>
-                            <div class="<?php echo $option_class; ?>">
-                                <strong><?php echo esc_html(strtoupper($letter)); ?>)</strong> <?php echo esc_html($opt['option']); ?>
-                            </div>
-                        <?php endforeach; ?>
+                    <div class="question-main">
+                        <div class="question-title">
+                            <?php echo ($index + 1) . '. ' . esc_html($q['title']); ?>
+                        </div>
+                        
+                        <div class="options-list">
+                            <?php 
+                            $letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
+                            foreach ($q['options'] as $o_idx => $opt) : 
+                                $letter = isset($letters[$o_idx]) ? $letters[$o_idx] : chr(97 + $o_idx);
+                                $is_correct_opt = $with_answers && !empty($opt['correct']);
+                                $option_class = $is_correct_opt ? 'option-item option-correct' : 'option-item';
+                                ?>
+                                <div class="<?php echo $option_class; ?>">
+                                    <strong><?php echo esc_html(strtoupper($letter)); ?>)</strong> <?php echo esc_html($opt['option']); ?>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
                     </div>
 
                     <?php if ($with_answers && !empty($q['explanation'])) : ?>
