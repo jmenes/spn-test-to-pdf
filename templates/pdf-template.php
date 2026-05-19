@@ -83,9 +83,9 @@ if (!function_exists('spn_get_doc_icon_base64')) {
         /* Marca de agua centrada en cada página */
         #watermark {
             position: fixed;
-            top: 25%;
-            left: 15%;
-            width: 70%;
+            top: 29.5%;
+            left: 8%;
+            width: 84%;
             height: auto;
             opacity: 0.12;
             z-index: -1000;
