@@ -23,7 +23,7 @@
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             color: #2c3e50;
             line-height: 1.5;
-            font-size: 10.5pt;
+            font-size: 9.5pt;
         }
         /* Marca de agua centrada en cada página */
         #watermark {
@@ -48,7 +48,7 @@
             float: left;
         }
         .header-title {
-            font-size: 11pt;
+            font-size: 10.5pt;
             font-weight: bold;
             color: #475569;
             margin-left: 12px;
@@ -60,21 +60,28 @@
         }
         .header-meta {
             float: right;
-            font-size: 9.5pt;
+            font-size: 9pt;
             color: #7f8c8d;
             margin-top: 12px;
         }
+        .icon {
+            font-family: 'DejaVu Sans', sans-serif;
+            font-size: 10pt;
+            color: #7f8c8d;
+            vertical-align: middle;
+            margin-right: 3px;
+        }
         .test-title {
-            font-size: 20pt;
+            font-size: 16pt;
             font-weight: bold;
             color: #1a252f;
             margin: 15px 0 5px 0;
             clear: both;
         }
         .test-subtitle {
-            font-size: 10.5pt;
+            font-size: 10pt;
             color: #7f8c8d;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             border-bottom: 1px dashed #e2e8f0;
             padding-bottom: 8px;
         }
@@ -83,57 +90,41 @@
         }
         .question-block {
             page-break-inside: avoid;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
             border-bottom: 1px solid #f1f2f6;
         }
         .question-title {
             font-weight: bold;
-            font-size: 11pt;
-            margin-bottom: 10px;
+            font-size: 10pt;
+            margin-bottom: 8px;
             color: #2c3e50;
         }
         .options-list {
             margin-left: 15px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .option-item {
-            margin-bottom: 6px;
-            font-size: 10pt;
-        }
-        .checkbox {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            border: 1px solid #7f8c8d;
-            border-radius: 2px;
-            margin-right: 8px;
-            vertical-align: middle;
-            background-color: #ffffff;
+            margin-bottom: 5px;
+            font-size: 9pt;
         }
         /* Estilos para el solucionario */
         .option-correct {
             font-weight: bold;
             color: #27ae60;
         }
-        .checkbox-correct {
-            border-color: #27ae60;
-            background-color: #27ae60;
-        }
         .explanation-block {
-            background-color: #fafbfc;
-            border-left: 4px solid #27ae60;
-            padding: 12px 15px;
-            margin-top: 12px;
-            border-radius: 0 4px 4px 0;
-            font-size: 9.5pt;
+            border-left: 3px solid #27ae60;
+            padding: 0 0 0 10px;
+            margin-top: 8px;
+            font-size: 8.5pt;
             color: #5d6d7e;
         }
         .explanation-title {
             font-weight: bold;
             color: #27ae60;
-            margin-bottom: 5px;
-            font-size: 10pt;
+            margin-bottom: 3px;
+            font-size: 9pt;
         }
         .footer {
             position: fixed;
@@ -160,20 +151,11 @@
     <div class="header">
         <div class="header-meta">
             <span style="vertical-align: middle;">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7f8c8d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 3px; display: inline-block;">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12 6 12 12 16 14"></polyline>
-                </svg>
+                <span class="icon">&#9201;</span>
                 <span style="vertical-align: middle;"><?php echo esc_html($duration); ?> min</span>
             </span>
             <span style="margin-left: 15px; vertical-align: middle;">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7f8c8d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 3px; display: inline-block;">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                    <polyline points="14 2 14 8 20 8"></polyline>
-                    <line x1="16" y1="13" x2="8" y2="13"></line>
-                    <line x1="16" y1="17" x2="8" y2="17"></line>
-                    <polyline points="10 9 9 9 8 9"></polyline>
-                </svg>
+                <span class="icon">&#9776;</span>
                 <span style="vertical-align: middle;"><?php echo count($questions); ?></span>
             </span>
         </div>
