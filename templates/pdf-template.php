@@ -214,6 +214,128 @@ if (!function_exists('spn_get_doc_icon_base64')) {
             margin: 0;
             border-top: 1px solid #e2e8f0;
         }
+        
+        /* Estilos de la Portada */
+        @page :first {
+            margin: 0cm;
+        }
+        .cover-page {
+            box-sizing: border-box;
+            padding: 2.2cm 2cm 2cm 2cm;
+        }
+        .cover-header {
+            width: 100%;
+            font-size: 8.5pt;
+            font-weight: bold;
+            color: #1e3a8a;
+            text-transform: uppercase;
+        }
+        .cover-header-left {
+            float: left;
+        }
+        .cover-header-right {
+            float: right;
+            letter-spacing: 0.5px;
+        }
+        .cover-badge-a {
+            border: 3.5px solid #000;
+            width: 50px;
+            height: 55px;
+            line-height: 55px;
+            font-size: 38pt;
+            font-weight: bold;
+            text-align: center;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+        }
+        .cover-subtitle-escala {
+            text-align: center;
+            font-size: 13.5pt;
+            font-weight: bold;
+            margin-top: 15px;
+            color: #000;
+            letter-spacing: -0.2px;
+        }
+        .cover-subtitle-promo {
+            text-align: center;
+            font-size: 11pt;
+            font-weight: bold;
+            margin-top: 3px;
+            color: #000;
+        }
+        .cover-logo-container {
+            text-align: center;
+        }
+        .cover-logo {
+            height: 55px;
+            width: auto;
+        }
+        .cover-title-box {
+            border: 4px solid #000;
+            padding: 12px;
+            text-align: center;
+            font-size: 15pt;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 25px;
+            font-family: Arial, sans-serif;
+            letter-spacing: 0.5px;
+        }
+        .cover-fields {
+            margin-bottom: 30px;
+        }
+        .cover-instructions-wrapper {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        .cover-instructions {
+            float: left;
+            width: 72%;
+        }
+        .instructions-heading {
+            font-size: 9.5pt;
+            font-weight: bold;
+            text-decoration: underline;
+            margin-bottom: 8px;
+            color: #000;
+        }
+        .instructions-list {
+            margin: 0;
+            padding-left: 15px;
+            list-style-type: square;
+        }
+        .instructions-list li {
+            margin-bottom: 6px;
+            font-size: 8.5pt;
+            line-height: 1.35;
+        }
+        .cover-qr-box {
+            float: right;
+            width: 25%;
+            text-align: center;
+            margin-top: 5px;
+        }
+        .cover-qr-img {
+            width: 80px;
+            height: 80px;
+            display: block;
+            margin: 0 auto;
+        }
+        .cover-qr-text {
+            font-size: 9.5pt;
+            font-weight: bold;
+            margin-top: 6px;
+            color: #000;
+        }
+        .cover-footer-notice {
+            clear: both;
+            text-align: center;
+            font-size: 13pt;
+            font-weight: bold;
+            margin-top: 40px;
+            letter-spacing: 0.2px;
+            font-family: Arial, sans-serif;
+        }
     </style>
 </head>
 <body>
@@ -222,6 +344,79 @@ if (!function_exists('spn_get_doc_icon_base64')) {
     <?php if (!empty($watermark_path) && file_exists($watermark_path)) : ?>
         <img id="watermark" src="<?php echo $watermark_path; ?>" />
     <?php endif; ?>
+
+    <!-- Portada (Cover Page) -->
+    <div class="cover-page">
+        <div class="cover-header">
+            <span class="cover-header-left">SIMULACRO GRATUITO 1</span>
+            <span class="cover-header-right">SEGUIMIENTOPN</span>
+        </div>
+        
+        <div style="clear: both; height: 30px;"></div>
+        
+        <div class="cover-badge-a">A</div>
+        <div class="cover-subtitle-escala">ESCALA BÁSICA DE LA POLICÍA NACIONAL</div>
+        <div class="cover-subtitle-promo">(43ª promoción)</div>
+        
+        <div style="height: 35px;"></div>
+        
+        <div class="cover-logo-container">
+            <?php if (!empty($logo_path) && file_exists($logo_path)) : ?>
+                <img src="<?php echo $logo_path; ?>" class="cover-logo" />
+            <?php endif; ?>
+        </div>
+        
+        <div style="height: 35px;"></div>
+        
+        <div class="cover-title-box">
+            <?php echo esc_html(strtoupper($title)); ?>
+        </div>
+        
+        <div class="cover-fields">
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td style="width: 75%; font-weight: bold; font-style: italic; font-size: 10pt; vertical-align: bottom;">
+                        APELLIDOS Y NOMBRE: <span style="display: inline-block; width: 330px; border-bottom: 1.5px solid #000; margin-bottom: 2px;"></span>
+                    </td>
+                    <td style="width: 25%; font-weight: bold; font-style: italic; font-size: 10pt; text-align: right; vertical-align: bottom;">
+                        D.N.I.: <span style="display: inline-block; width: 110px; border-bottom: 1.5px solid #000; margin-bottom: 2px;"></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="cover-instructions-wrapper">
+            <div class="cover-instructions">
+                <div class="instructions-heading">INSTRUCCIONES</div>
+                <ul class="instructions-list">
+                    <li>La siguiente prueba consta de <strong><?php echo count($questions); ?></strong> preguntas. Si en el transcurso de la prueba observa que le falta alguna, comuníquelo a algún miembro del Tribunal o colaborador.</li>
+                    <li>Cada pregunta solo tiene una respuesta correcta.</li>
+                    <li>Los errores penalizan.</li>
+                    <li>Solo está permitido bolígrafo azul o negro, tipo Bic.</li>
+                    <li>Las contestaciones a las preguntas debe marcarlas en la hoja de respuestas <strong>A9</strong>, zona 1.</li>
+                    <?php if ($duration > 0) : ?>
+                        <li>Dispone de <strong><?php echo strtoupper(spn_number_to_words_es($duration)); ?> MINUTOS</strong>.</li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+            
+            <div class="cover-qr-box">
+                <?php if (!empty($qr_path) && file_exists($qr_path)) : ?>
+                    <img src="<?php echo $qr_path; ?>" class="cover-qr-img" />
+                    <div class="cover-qr-text">Hoja A9</div>
+                <?php endif; ?>
+            </div>
+            
+            <div style="clear: both;"></div>
+        </div>
+        
+        <div class="cover-footer-notice">
+            NO PASE LA PÁGINA HASTA QUE SE INDIQUE
+        </div>
+    </div>
+
+    <!-- Salto de página para comenzar las preguntas en la página 2 -->
+    <div style="page-break-after: always;"></div>
 
     <!-- Encabezado -->
     <div class="header">

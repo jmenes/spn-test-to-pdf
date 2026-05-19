@@ -149,6 +149,9 @@ function spn_ttp_handle_pdf_generation() {
     // Ruta absoluta al logo color para la cabecera en el PDF
     $logo_path = SPN_TTP_DIR . 'SeguimientoPN-Logo-Color.png';
     
+    // Ruta absoluta al código QR para la portada del PDF
+    $qr_path = SPN_TTP_DIR . 'SeguimientoPN-QR-A9.png';
+    
     // 8. Renderizar y capturar el HTML de la plantilla
     ob_start();
     if (file_exists(SPN_TTP_DIR . 'templates/pdf-template.php')) {
@@ -191,3 +194,32 @@ function spn_ttp_handle_pdf_generation() {
         wp_die('Error al generar el PDF: ' . esc_html($e->getMessage()));
     }
 }
+
+/**
+ * Convertir número a palabras en español para las instrucciones
+ */
+function spn_number_to_words_es($number) {
+    $map = [
+        0 => 'cero', 1 => 'un', 2 => 'dos', 3 => 'tres', 4 => 'cuatro', 5 => 'cinco',
+        6 => 'seis', 7 => 'siete', 8 => 'ocho', 9 => 'nueve', 10 => 'diez',
+        11 => 'once', 12 => 'doce', 13 => 'trece', 14 => 'catorce', 15 => 'quince',
+        16 => 'dieciséis', 17 => 'diecisiete', 18 => 'dieciocho', 19 => 'diecinueve', 20 => 'veinte',
+        21 => 'veintiuno', 22 => 'veintidós', 23 => 'veintitrés', 24 => 'veinticuatro', 25 => 'veinticinco',
+        26 => 'veintiséis', 27 => 'veintisiete', 28 => 'veintiocho', 29 => 'veintinueve', 30 => 'treinta',
+        40 => 'cuarenta', 50 => 'cincuenta', 60 => 'sesenta', 70 => 'setenta', 80 => 'ochenta', 90 => 'noventa',
+        100 => 'cien'
+    ];
+    if (isset($map[$number])) {
+        return $map[$number];
+    }
+    if ($number > 30 && $number < 100) {
+        $tens = floor($number / 10) * 10;
+        $units = $number % 10;
+        if ($units == 0) {
+            return $map[$tens];
+        }
+        return $map[$tens] . ' y ' . $map[$units];
+    }
+    return (string)$number;
+}
+
