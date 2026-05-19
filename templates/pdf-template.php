@@ -376,25 +376,25 @@ if (!function_exists('spn_get_correct_answer_letter')) {
             color: #27ae60;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 30px;
+            margin-bottom: 15px;
         }
         .sol-table-title {
             text-align: center;
             font-size: 12pt;
             font-weight: bold;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             color: #2c3e50;
             text-transform: uppercase;
         }
         .sol-table {
-            width: 85%;
+            width: 80%;
             margin: 0 auto;
             border-collapse: collapse;
-            font-size: 9.5pt;
+            font-size: 8.5pt;
         }
         .sol-table td {
             border: 1px solid #cbd5e1;
-            padding: 5px 8px;
+            padding: 3px 5px;
             text-align: center;
             width: 25%;
         }
