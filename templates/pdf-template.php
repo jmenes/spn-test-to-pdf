@@ -347,16 +347,10 @@ if (!function_exists('spn_get_doc_icon_base64')) {
 
     <!-- Portada (Cover Page) -->
     <div class="cover-page">
-        <div class="cover-header">
-            <span class="cover-header-left">SIMULACRO GRATUITO 1</span>
-            <span class="cover-header-right">SEGUIMIENTOPN</span>
-        </div>
-        
-        <div style="clear: both; height: 30px;"></div>
+        <div style="height: 10px;"></div>
         
         <div class="cover-badge-a">A</div>
         <div class="cover-subtitle-escala">ESCALA BÁSICA DE LA POLICÍA NACIONAL</div>
-        <div class="cover-subtitle-promo">(43ª promoción)</div>
         
         <div style="height: 35px;"></div>
         
@@ -375,10 +369,10 @@ if (!function_exists('spn_get_doc_icon_base64')) {
         <div class="cover-fields">
             <table style="width: 100%; border-collapse: collapse;">
                 <tr>
-                    <td style="width: 75%; font-weight: bold; font-style: italic; font-size: 10pt; vertical-align: bottom;">
+                    <td style="font-weight: bold; font-style: italic; font-size: 10pt; vertical-align: bottom; white-space: nowrap;">
                         APELLIDOS Y NOMBRE: <span style="display: inline-block; width: 330px; border-bottom: 1.5px solid #000; margin-bottom: 2px;"></span>
                     </td>
-                    <td style="width: 25%; font-weight: bold; font-style: italic; font-size: 10pt; text-align: right; vertical-align: bottom;">
+                    <td style="font-weight: bold; font-style: italic; font-size: 10pt; text-align: right; vertical-align: bottom; white-space: nowrap; padding-left: 20px;">
                         D.N.I.: <span style="display: inline-block; width: 110px; border-bottom: 1.5px solid #000; margin-bottom: 2px;"></span>
                     </td>
                 </tr>
