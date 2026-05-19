@@ -203,7 +203,7 @@ if (!function_exists('spn_get_doc_icon_base64')) {
             line-height: 30px;
         }
         .footer-content {
-            margin: 0 2cm;
+            margin: 0;
             border-top: 1px solid #e2e8f0;
         }
     </style>
