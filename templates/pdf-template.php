@@ -399,7 +399,6 @@ if (!function_exists('spn_get_correct_answer_letter')) {
             width: 25%;
         }
         .sol-table td.empty-cell {
-            background-color: #f8fafc;
             color: #cbd5e1;
         }
     </style>
