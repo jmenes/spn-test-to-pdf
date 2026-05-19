@@ -143,11 +143,11 @@ function spn_ttp_handle_pdf_generation() {
     $duration_raw = get_field('field_6912550e1539e', $post_id); // Campo ACF Duración
     $duration = is_numeric($duration_raw) ? intval($duration_raw) : 0;
     
-    // Ruta absoluta al icono SVG para marca de agua en el PDF
-    $watermark_path = SPN_TTP_DIR . 'SeguimientoPN-icon.svg';
+    // Ruta absoluta al icono PNG para marca de agua en el PDF
+    $watermark_path = SPN_TTP_DIR . 'SeguimientoPN-icon.png';
     
     // Ruta absoluta al logo color para la cabecera en el PDF
-    $logo_path = SPN_TTP_DIR . 'SeguimientoPN-Logo-Color.svg';
+    $logo_path = SPN_TTP_DIR . 'SeguimientoPN-Logo-Color.png';
     
     // 8. Renderizar y capturar el HTML de la plantilla
     ob_start();

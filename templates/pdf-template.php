@@ -218,7 +218,7 @@
     </div>
 
     <div class="footer">
-        &copy; <?php echo date('Y'); ?> menes.studio - Seguimiento PN - Todos los derechos reservados.
+        &copy; <?php echo date('Y'); ?> Seguimiento PN - Todos los derechos reservados.
     </div>
 
 </body>
