@@ -164,7 +164,8 @@ function spn_ttp_handle_pdf_generation() {
             'isHtml5ParserEnabled' => true,
             'isPhpEnabled'          => false,
             'isRemoteEnabled'       => true,
-            'defaultFont'           => 'sans-serif'
+            'defaultFont'           => 'sans-serif',
+            'chroot'                => dirname(ABSPATH, 2)
         ]);
         
         $dompdf->loadHtml($html);
