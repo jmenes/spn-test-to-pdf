@@ -19,8 +19,8 @@ define('SPN_TTP_URL', plugin_dir_url(__FILE__));
 /**
  * Añadir columna "Exportar PDF" en el listado de Tests y Simulacros
  */
-add_filter('manage_test_posts_columns', 'spn_ttp_add_pdf_columns');
-add_filter('manage_simulacro_posts_columns', 'spn_ttp_add_pdf_columns');
+add_filter('manage_edit-test_columns', 'spn_ttp_add_pdf_columns');
+add_filter('manage_edit-simulacro_columns', 'spn_ttp_add_pdf_columns');
 function spn_ttp_add_pdf_columns($columns) {
     $columns['spn_pdf_actions'] = 'Exportar PDF';
     return $columns;
@@ -39,7 +39,7 @@ function spn_ttp_render_pdf_columns($column, $post_id) {
         
         echo '<div class="spn-pdf-actions-wrapper">';
         echo '<a href="' . esc_url($test_url) . '" class="spn-pdf-btn spn-pdf-btn-test" title="Descargar Test sin soluciones">';
-        echo '<span class="dashicons dashicons-pdf"></span> Descargar Test';
+        echo '<span class="dashicons dashicons-pdf"></span> Test';
         echo '</a>';
         echo '<a href="' . esc_url($solucion_url) . '" class="spn-pdf-btn spn-pdf-btn-answers" title="Descargar Solucionario con respuestas y explicaciones">';
         echo '<span class="dashicons dashicons-welcome-learn-more"></span> Solucionario';
