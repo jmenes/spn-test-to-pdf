@@ -64,6 +64,20 @@ if (!function_exists('spn_get_doc_icon_base64')) {
         return 'data:image/png;base64,' . base64_encode($data);
     }
 }
+
+if (!function_exists('spn_get_correct_answer_letter')) {
+    function spn_get_correct_answer_letter($question) {
+        $letters = ['A', 'B', 'C', 'D', 'E'];
+        if (isset($question['options']) && is_array($question['options'])) {
+            foreach ($question['options'] as $idx => $opt) {
+                if (!empty($opt['correct'])) {
+                    return isset($letters[$idx]) ? $letters[$idx] : '';
+                }
+            }
+        }
+        return '';
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -312,8 +326,8 @@ if (!function_exists('spn_get_doc_icon_base64')) {
             margin-bottom: 15px;
         }
         .cover-qr-img {
-            width: 80px;
-            height: 80px;
+            width: 120px;
+            height: 120px;
             display: block;
             margin: 0 auto;
         }
@@ -345,6 +359,49 @@ if (!function_exists('spn_get_doc_icon_base64')) {
             letter-spacing: 0.2px;
             font-family: Arial, sans-serif;
         }
+        
+        /* Estilos de la Portada del Solucionario */
+        .sol-cover-title {
+            text-align: center;
+            font-size: 18pt;
+            font-weight: bold;
+            margin-top: 2.2cm;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        .sol-cover-subtitle {
+            text-align: center;
+            font-size: 13pt;
+            font-weight: bold;
+            color: #27ae60;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+        }
+        .sol-table-title {
+            text-align: center;
+            font-size: 12pt;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #2c3e50;
+            text-transform: uppercase;
+        }
+        .sol-table {
+            width: 85%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            font-size: 9.5pt;
+        }
+        .sol-table td {
+            border: 1px solid #cbd5e1;
+            padding: 5px 8px;
+            text-align: center;
+            width: 25%;
+        }
+        .sol-table td.empty-cell {
+            background-color: #f8fafc;
+            color: #cbd5e1;
+        }
     </style>
 </head>
 <body>
@@ -355,65 +412,97 @@ if (!function_exists('spn_get_doc_icon_base64')) {
     <?php endif; ?>
 
     <!-- Portada (Cover Page) -->
-    <div class="cover-page">
-        <div style="height: 10px;"></div>
-        
-        <div class="cover-badge-a">A</div>
-        <div class="cover-subtitle-escala">ESCALA BÁSICA DE LA POLICÍA NACIONAL</div>
-        
-        <div style="height: 35px;"></div>
-        
-        <div class="cover-logo-container">
-            <?php if (!empty($logo_path) && file_exists($logo_path)) : ?>
-                <img src="<?php echo $logo_path; ?>" class="cover-logo" />
-            <?php endif; ?>
+    <?php if (!$with_answers) : ?>
+        <div class="cover-page">
+            <div style="height: 10px;"></div>
+            
+            <div class="cover-badge-a">A</div>
+            <div class="cover-subtitle-escala">ESCALA BÁSICA DE LA POLICÍA NACIONAL</div>
+            
+            <div style="height: 35px;"></div>
+            
+            <div class="cover-logo-container">
+                <?php if (!empty($logo_path) && file_exists($logo_path)) : ?>
+                    <img src="<?php echo $logo_path; ?>" class="cover-logo" />
+                <?php endif; ?>
+            </div>
+            
+            <div style="height: 35px;"></div>
+            
+            <div class="cover-title-box">
+                <?php echo esc_html(strtoupper($title)); ?>
+            </div>
+            
+            <div class="cover-fields">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr>
+                        <td style="font-weight: bold; font-style: italic; font-size: 10pt; vertical-align: bottom; white-space: nowrap;">
+                            APELLIDOS Y NOMBRE: <span style="display: inline-block; width: 330px; border-bottom: 1.5px solid #000; margin-bottom: 2px;"></span>
+                        </td>
+                        <td style="font-weight: bold; font-style: italic; font-size: 10pt; text-align: right; vertical-align: bottom; white-space: nowrap; padding-left: 20px;">
+                            D.N.I.: <span style="display: inline-block; width: 110px; border-bottom: 1.5px solid #000; margin-bottom: 2px;"></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="cover-instructions">
+                <div class="instructions-heading">INSTRUCCIONES</div>
+                <ul class="instructions-list">
+                    <li>La siguiente prueba consta de <strong><?php echo count($questions); ?></strong> preguntas. Si en el transcurso de la prueba observa que le falta alguna, comuníquelo a algún miembro del Tribunal o colaborador.</li>
+                    <li>Cada pregunta solo tiene una respuesta correcta.</li>
+                    <li>Los errores penalizan.</li>
+                    <li>Solo está permitido bolígrafo azul o negro, tipo Bic.</li>
+                    <li>Las contestaciones a las preguntas debe marcarlas en la hoja de respuestas <strong>A9</strong>, zona 1.</li>
+                    <?php if ($duration > 0) : ?>
+                        <li>Dispone de <strong><?php echo strtoupper(spn_number_to_words_es($duration)); ?> MINUTOS</strong>.</li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+            
+            <div class="cover-qr-box">
+                <?php if (!empty($qr_path) && file_exists($qr_path)) : ?>
+                    <img src="<?php echo $qr_path; ?>" class="cover-qr-img" />
+                    <div class="cover-qr-text">Hoja A9</div>
+                    <a href="https://drive.google.com/file/d/15xV1omkjQIpYmGFXbF2a7-bcvyy4nxzJ/" class="cover-btn-download">Descargar Hoja A9</a>
+                <?php endif; ?>
+            </div>
+            
+            <div class="cover-footer-notice">
+                NO PASE LA PÁGINA HASTA QUE SE INDIQUE
+            </div>
         </div>
-        
-        <div style="height: 35px;"></div>
-        
-        <div class="cover-title-box">
-            <?php echo esc_html(strtoupper($title)); ?>
-        </div>
-        
-        <div class="cover-fields">
-            <table style="width: 100%; border-collapse: collapse;">
-                <tr>
-                    <td style="font-weight: bold; font-style: italic; font-size: 10pt; vertical-align: bottom; white-space: nowrap;">
-                        APELLIDOS Y NOMBRE: <span style="display: inline-block; width: 330px; border-bottom: 1.5px solid #000; margin-bottom: 2px;"></span>
-                    </td>
-                    <td style="font-weight: bold; font-style: italic; font-size: 10pt; text-align: right; vertical-align: bottom; white-space: nowrap; padding-left: 20px;">
-                        D.N.I.: <span style="display: inline-block; width: 110px; border-bottom: 1.5px solid #000; margin-bottom: 2px;"></span>
-                    </td>
-                </tr>
+    <?php else : ?>
+        <!-- Portada del Solucionario -->
+        <div class="cover-page">
+            <div class="sol-cover-title"><?php echo esc_html(strtoupper($title)); ?></div>
+            <div class="sol-cover-subtitle">Retroalimentación</div>
+            
+            <div class="sol-table-title">Soluciones</div>
+            
+            <?php
+            $rows = max(25, ceil(count($questions) / 4));
+            ?>
+            <table class="sol-table">
+                <?php for ($r = 0; $r < $rows; $r++) : ?>
+                    <tr>
+                        <?php for ($c = 0; $c < 4; $c++) : ?>
+                            <?php
+                            $q_idx = $r + ($c * $rows);
+                            if (isset($questions[$q_idx])) {
+                                $q_num = $q_idx + 1;
+                                $correct_letter = spn_get_correct_answer_letter($questions[$q_idx]);
+                                echo "<td><strong>{$q_num}.</strong> {$correct_letter}</td>";
+                            } else {
+                                echo "<td class=\"empty-cell\">-</td>";
+                            }
+                            ?>
+                        <?php endfor; ?>
+                    </tr>
+                <?php endfor; ?>
             </table>
         </div>
-        
-        <div class="cover-instructions">
-            <div class="instructions-heading">INSTRUCCIONES</div>
-            <ul class="instructions-list">
-                <li>La siguiente prueba consta de <strong><?php echo count($questions); ?></strong> preguntas. Si en el transcurso de la prueba observa que le falta alguna, comuníquelo a algún miembro del Tribunal o colaborador.</li>
-                <li>Cada pregunta solo tiene una respuesta correcta.</li>
-                <li>Los errores penalizan.</li>
-                <li>Solo está permitido bolígrafo azul o negro, tipo Bic.</li>
-                <li>Las contestaciones a las preguntas debe marcarlas en la hoja de respuestas <strong>A9</strong>, zona 1.</li>
-                <?php if ($duration > 0) : ?>
-                    <li>Dispone de <strong><?php echo strtoupper(spn_number_to_words_es($duration)); ?> MINUTOS</strong>.</li>
-                <?php endif; ?>
-            </ul>
-        </div>
-        
-        <div class="cover-qr-box">
-            <?php if (!empty($qr_path) && file_exists($qr_path)) : ?>
-                <img src="<?php echo $qr_path; ?>" class="cover-qr-img" />
-                <div class="cover-qr-text">Hoja A9</div>
-                <a href="https://drive.google.com/file/d/15xV1omkjQIpYmGFXbF2a7-bcvyy4nxzJ/" class="cover-btn-download">Descargar Hoja A9</a>
-            <?php endif; ?>
-        </div>
-        
-        <div class="cover-footer-notice">
-            NO PASE LA PÁGINA HASTA QUE SE INDIQUE
-        </div>
-    </div>
+    <?php endif; ?>
 
     <!-- Salto de página para comenzar las preguntas en la página 2 -->
     <div style="page-break-after: always;"></div>
