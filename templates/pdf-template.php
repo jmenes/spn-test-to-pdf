@@ -245,7 +245,7 @@ if (!function_exists('spn_get_doc_icon_base64')) {
                 <?php echo esc_html($title); ?>
             </div>
             <?php if ($with_answers) : ?>
-                <div class="header-solucionario-label">SOLUCIONARIO Y EXPLICACIONES</div>
+                <div class="header-solucionario-label">RETROALIMENTACIÓN</div>
             <?php endif; ?>
         </div>
     </div>
