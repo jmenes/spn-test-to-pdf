@@ -284,13 +284,9 @@ if (!function_exists('spn_get_doc_icon_base64')) {
         .cover-fields {
             margin-bottom: 30px;
         }
-        .cover-instructions-wrapper {
-            width: 100%;
-            margin-bottom: 30px;
-        }
         .cover-instructions {
-            float: left;
-            width: 72%;
+            width: 100%;
+            margin-bottom: 20px;
         }
         .instructions-heading {
             font-size: 9.5pt;
@@ -310,10 +306,10 @@ if (!function_exists('spn_get_doc_icon_base64')) {
             line-height: 1.35;
         }
         .cover-qr-box {
-            float: right;
-            width: 25%;
+            width: 100%;
             text-align: center;
-            margin-top: 5px;
+            margin-top: 15px;
+            margin-bottom: 15px;
         }
         .cover-qr-img {
             width: 80px;
@@ -326,6 +322,19 @@ if (!function_exists('spn_get_doc_icon_base64')) {
             font-weight: bold;
             margin-top: 6px;
             color: #000;
+        }
+        .cover-btn-download {
+            display: block;
+            width: 160px;
+            margin: 8px auto 0 auto;
+            background-color: #1e3a8a;
+            color: #ffffff !important;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 9pt;
+            padding: 7px 12px;
+            border-radius: 4px;
+            text-align: center;
         }
         .cover-footer-notice {
             clear: both;
@@ -379,29 +388,26 @@ if (!function_exists('spn_get_doc_icon_base64')) {
             </table>
         </div>
         
-        <div class="cover-instructions-wrapper">
-            <div class="cover-instructions">
-                <div class="instructions-heading">INSTRUCCIONES</div>
-                <ul class="instructions-list">
-                    <li>La siguiente prueba consta de <strong><?php echo count($questions); ?></strong> preguntas. Si en el transcurso de la prueba observa que le falta alguna, comuníquelo a algún miembro del Tribunal o colaborador.</li>
-                    <li>Cada pregunta solo tiene una respuesta correcta.</li>
-                    <li>Los errores penalizan.</li>
-                    <li>Solo está permitido bolígrafo azul o negro, tipo Bic.</li>
-                    <li>Las contestaciones a las preguntas debe marcarlas en la hoja de respuestas <strong>A9</strong>, zona 1.</li>
-                    <?php if ($duration > 0) : ?>
-                        <li>Dispone de <strong><?php echo strtoupper(spn_number_to_words_es($duration)); ?> MINUTOS</strong>.</li>
-                    <?php endif; ?>
-                </ul>
-            </div>
-            
-            <div class="cover-qr-box">
-                <?php if (!empty($qr_path) && file_exists($qr_path)) : ?>
-                    <img src="<?php echo $qr_path; ?>" class="cover-qr-img" />
-                    <div class="cover-qr-text">Hoja A9</div>
+        <div class="cover-instructions">
+            <div class="instructions-heading">INSTRUCCIONES</div>
+            <ul class="instructions-list">
+                <li>La siguiente prueba consta de <strong><?php echo count($questions); ?></strong> preguntas. Si en el transcurso de la prueba observa que le falta alguna, comuníquelo a algún miembro del Tribunal o colaborador.</li>
+                <li>Cada pregunta solo tiene una respuesta correcta.</li>
+                <li>Los errores penalizan.</li>
+                <li>Solo está permitido bolígrafo azul o negro, tipo Bic.</li>
+                <li>Las contestaciones a las preguntas debe marcarlas en la hoja de respuestas <strong>A9</strong>, zona 1.</li>
+                <?php if ($duration > 0) : ?>
+                    <li>Dispone de <strong><?php echo strtoupper(spn_number_to_words_es($duration)); ?> MINUTOS</strong>.</li>
                 <?php endif; ?>
-            </div>
-            
-            <div style="clear: both;"></div>
+            </ul>
+        </div>
+        
+        <div class="cover-qr-box">
+            <?php if (!empty($qr_path) && file_exists($qr_path)) : ?>
+                <img src="<?php echo $qr_path; ?>" class="cover-qr-img" />
+                <div class="cover-qr-text">Hoja A9</div>
+                <a href="https://drive.google.com/file/d/15xV1omkjQIpYmGFXbF2a7-bcvyy4nxzJ/" class="cover-btn-download">Descargar Hoja A9</a>
+            <?php endif; ?>
         </div>
         
         <div class="cover-footer-notice">
