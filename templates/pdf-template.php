@@ -363,9 +363,9 @@ if (!function_exists('spn_get_correct_answer_letter')) {
         /* Estilos de la Portada del Solucionario */
         .sol-cover-title {
             text-align: center;
-            font-size: 18pt;
+            font-size: 16pt;
             font-weight: bold;
-            margin-top: 2.2cm;
+            margin-top: 10px;
             margin-bottom: 5px;
             color: #2c3e50;
         }
@@ -475,6 +475,12 @@ if (!function_exists('spn_get_correct_answer_letter')) {
     <?php else : ?>
         <!-- Portada del Solucionario -->
         <div class="cover-page">
+            <div class="cover-logo-container" style="margin-bottom: 25px;">
+                <?php if (!empty($logo_path) && file_exists($logo_path)) : ?>
+                    <img src="<?php echo $logo_path; ?>" class="cover-logo" />
+                <?php endif; ?>
+            </div>
+            
             <div class="sol-cover-title"><?php echo esc_html(strtoupper($title)); ?></div>
             <div class="sol-cover-subtitle">Retroalimentación</div>
             
