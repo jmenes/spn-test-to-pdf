@@ -1,0 +1,17 @@
+{
+	"name": "menes/spn-test-to-pdf",
+	"description": "Convertir a PDF los post types simulacros y test para realizar en papel, con marca de agua y solucionario.",
+	"type": "wordpress-plugin",
+	"license": "GPL-2.0-or-later",
+	"authors": [
+		{
+			"name": "menes.studio",
+			"email": "hola@menes.studio"
+		}
+	],
+	"minimum-stability": "dev",
+	"require": {
+		"php": ">=8.0",
+		"composer/installers": "^2.1"
+	}
+}
