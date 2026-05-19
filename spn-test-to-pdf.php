@@ -146,6 +146,9 @@ function spn_ttp_handle_pdf_generation() {
     // Ruta absoluta al icono SVG para marca de agua en el PDF
     $watermark_path = SPN_TTP_DIR . 'SeguimientoPN-icon.svg';
     
+    // Ruta absoluta al logo color para la cabecera en el PDF
+    $logo_path = SPN_TTP_DIR . 'SeguimientoPN-Logo-Color.svg';
+    
     // 8. Renderizar y capturar el HTML de la plantilla
     ob_start();
     if (file_exists(SPN_TTP_DIR . 'templates/pdf-template.php')) {

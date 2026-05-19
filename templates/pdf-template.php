@@ -155,7 +155,13 @@
             <strong>Duración:</strong> <?php echo esc_html($duration); ?> min<br>
             <strong>Preguntas:</strong> <?php echo count($questions); ?>
         </div>
-        <div class="logo">Seguimiento PN</div>
+        <div class="logo">
+            <?php if (!empty($logo_path) && file_exists($logo_path)) : ?>
+                <img src="<?php echo $logo_path; ?>" style="height: 38px; width: auto; vertical-align: middle;" />
+            <?php else : ?>
+                Seguimiento PN
+            <?php endif; ?>
+        </div>
     </div>
 
     <!-- Título del Examen -->
@@ -180,15 +186,17 @@
                     </div>
                     
                     <div class="options-list">
-                        <?php foreach ($q['options'] as $opt) : ?>
-                            <?php 
+                        <?php 
+                        $letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
+                        foreach ($q['options'] as $o_idx => $opt) : 
+                            $letter = isset($letters[$o_idx]) ? $letters[$o_idx] : chr(97 + $o_idx);
                             $is_correct_opt = $with_answers && !empty($opt['correct']);
                             $option_class = $is_correct_opt ? 'option-item option-correct' : 'option-item';
                             $checkbox_class = $is_correct_opt ? 'checkbox checkbox-correct' : 'checkbox';
                             ?>
                             <div class="<?php echo $option_class; ?>">
                                 <span class="<?php echo $checkbox_class; ?>"></span>
-                                <strong><?php echo esc_html(strtoupper($opt['id'])); ?>)</strong> <?php echo esc_html($opt['option']); ?>
+                                <strong><?php echo esc_html(strtoupper($letter)); ?>)</strong> <?php echo esc_html($opt['option']); ?>
                             </div>
                         <?php endforeach; ?>
                     </div>
