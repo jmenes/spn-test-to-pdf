@@ -177,8 +177,8 @@ function spn_ttp_handle_pdf_generation() {
         if ($canvas) {
             $fontMetrics = $dompdf->getFontMetrics();
             $font = $fontMetrics->get_font('helvetica', 'normal');
-            // X=515 y Y=802 colocan el texto "PÁGINA / TOTAL" alineado con el pie de página
-            $canvas->page_text(515, 802, '{PAGE_NUM} / {PAGE_COUNT}', $font, 8, [160/255, 174/255, 192/255]);
+            // X=515 y Y=802.7 colocan el texto "PÁGINA / TOTAL" alineado con el pie de página
+            $canvas->page_text(515, 802.7, '{PAGE_NUM} / {PAGE_COUNT}', $font, 8, [160/255, 174/255, 192/255]);
         }
         
         $suffix = $with_answers ? '-solucionario' : '-examen';

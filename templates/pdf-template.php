@@ -195,13 +195,16 @@ if (!function_exists('spn_get_doc_icon_base64')) {
         .footer {
             position: fixed;
             bottom: -1.2cm;
-            left: 2cm;
-            right: 2cm;
+            left: 0px;
+            right: 0px;
             height: 30px;
-            border-top: 1px solid #e2e8f0;
             font-size: 8pt;
             color: #a0aec0;
             line-height: 30px;
+        }
+        .footer-content {
+            margin: 0 2cm;
+            border-top: 1px solid #e2e8f0;
         }
     </style>
 </head>
@@ -281,7 +284,10 @@ if (!function_exists('spn_get_doc_icon_base64')) {
     </div>
 
     <div class="footer">
-        <span style="float: left;">&copy; <?php echo date('Y'); ?> Seguimiento PN - Todos los derechos reservados.</span>
+        <div class="footer-content">
+            <span style="float: left;">&copy; <?php echo date('Y'); ?> Seguimiento PN - Todos los derechos reservados.</span>
+            <div style="clear: both;"></div>
+        </div>
     </div>
 
 </body>
