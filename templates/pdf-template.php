@@ -40,17 +40,29 @@
             top: -1.8cm;
             left: 0px;
             right: 0px;
-            height: 45px;
-            border-bottom: 2px solid #34495e;
+            height: 48px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 8px;
         }
         .logo {
             float: left;
+        }
+        .header-title {
+            font-size: 11pt;
+            font-weight: bold;
+            color: #475569;
+            margin-left: 12px;
+            border-left: 1px solid #e2e8f0;
+            padding-left: 12px;
+            vertical-align: middle;
+            display: inline-block;
+            line-height: 38px;
         }
         .header-meta {
             float: right;
             font-size: 9.5pt;
             color: #7f8c8d;
-            margin-top: 10px;
+            margin-top: 12px;
         }
         .test-title {
             font-size: 20pt;
@@ -147,8 +159,23 @@
     <!-- Encabezado -->
     <div class="header">
         <div class="header-meta">
-            <span><strong>Duración:</strong> <?php echo esc_html($duration); ?> min</span>
-            <span style="margin-left: 20px;"><strong>Preguntas:</strong> <?php echo count($questions); ?></span>
+            <span style="vertical-align: middle;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7f8c8d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 3px; display: inline-block;">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span style="vertical-align: middle;"><?php echo esc_html($duration); ?> min</span>
+            </span>
+            <span style="margin-left: 15px; vertical-align: middle;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7f8c8d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 3px; display: inline-block;">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                <span style="vertical-align: middle;"><?php echo count($questions); ?></span>
+            </span>
         </div>
         <div class="logo">
             <?php if (!empty($logo_path) && file_exists($logo_path)) : ?>
@@ -156,6 +183,7 @@
             <?php else : ?>
                 Seguimiento PN
             <?php endif; ?>
+            <span class="header-title"><?php echo esc_html($title); ?></span>
         </div>
     </div>
 
@@ -163,7 +191,7 @@
     <div class="test-title"><?php echo esc_html($title); ?></div>
     <?php if ($with_answers) : ?>
         <div class="test-subtitle">
-            <strong style="color: #27ae60;">SOLUCIONARIO Y EXPLICACIONES</strong> - Documento de revisión pedagógica.
+            <strong style="color: #27ae60;">SOLUCIONARIO Y EXPLICACIONES</strong>
         </div>
     <?php endif; ?>
 
