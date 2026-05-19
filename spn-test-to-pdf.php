@@ -19,8 +19,8 @@ define('SPN_TTP_URL', plugin_dir_url(__FILE__));
 /**
  * Añadir columna "Exportar PDF" en el listado de Tests y Simulacros
  */
-add_filter('manage_edit-test_columns', 'spn_ttp_add_pdf_columns');
-add_filter('manage_edit-simulacro_columns', 'spn_ttp_add_pdf_columns');
+add_filter('manage_edit-test_columns', 'spn_ttp_add_pdf_columns', 9999);
+add_filter('manage_edit-simulacro_columns', 'spn_ttp_add_pdf_columns', 9999);
 function spn_ttp_add_pdf_columns($columns) {
     $columns['spn_pdf_actions'] = 'Exportar PDF';
     return $columns;
