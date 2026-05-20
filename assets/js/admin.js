@@ -25,7 +25,7 @@ jQuery(document).ready(function($) {
             $btn.html('<span class="dashicons dashicons-update spin"></span> Descargando...');
             
             var finalSolUrl = solUrl + '&seed=' + seed;
-            triggerDirectDownload(finalSolUrl, fileBase + '-solucionario-aleatorio.pdf', function() {
+            triggerDirectDownload(finalSolUrl, fileBase + '-solucionario.pdf', function() {
                 resetButton($btn);
             });
             return;
@@ -49,7 +49,7 @@ jQuery(document).ready(function($) {
             })
             .then(function(blob) {
                 // Descargar Examen
-                saveBlob(blob, fileBase + '-examen-aleatorio.pdf');
+                saveBlob(blob, fileBase + '-examen.pdf');
                 
                 // Cambiar estado a solucionario pendiente (por si falla la autodescarga)
                 $btn.removeClass('disabled').css('pointer-events', '').css('opacity', '')
@@ -65,7 +65,7 @@ jQuery(document).ready(function($) {
             })
             .then(function(blob) {
                 // Descargar Solucionario automáticamente
-                saveBlob(blob, fileBase + '-solucionario-aleatorio.pdf');
+                saveBlob(blob, fileBase + '-solucionario.pdf');
                 
                 // Si la autodescarga funciona, restaurar botón tras 1.5s
                 setTimeout(function() {

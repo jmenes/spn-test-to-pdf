@@ -196,9 +196,6 @@ function spn_ttp_handle_pdf_generation() {
         }
         
         $suffix = $with_answers ? '-solucionario' : '-examen';
-        if (isset($_GET['seed']) && is_numeric($_GET['seed'])) {
-            $suffix .= '-aleatorio';
-        }
         $filename = sanitize_title($title) . $suffix . '.pdf';
         
         // Transmitir descarga directa
