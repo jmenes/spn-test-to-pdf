@@ -35,16 +35,19 @@ add_action('manage_test_posts_custom_column', 'spn_ttp_render_pdf_columns', 10, 
 add_action('manage_simulacro_posts_custom_column', 'spn_ttp_render_pdf_columns', 10, 2);
 function spn_ttp_render_pdf_columns($column, $post_id) {
     if ($column === 'spn_pdf_actions') {
+        $post = get_post($post_id);
+        $title = $post ? get_the_title($post) : 'documento';
         $nonce = wp_create_nonce('spn_generate_pdf_' . $post_id);
         $test_url = admin_url('admin-post.php?action=spn_generate_test_pdf&post_id=' . $post_id . '&with_answers=0&_wpnonce=' . $nonce);
         $solucion_url = admin_url('admin-post.php?action=spn_generate_test_pdf&post_id=' . $post_id . '&with_answers=1&_wpnonce=' . $nonce);
         
         echo '<div class="spn-pdf-actions-wrapper">';
-        echo '<a href="' . esc_url($test_url) . '" class="spn-pdf-btn spn-pdf-btn-test" title="Descargar Test sin soluciones">';
-        echo '<span class="dashicons dashicons-pdf"></span> Test';
-        echo '</a>';
-        echo '<a href="' . esc_url($solucion_url) . '" class="spn-pdf-btn spn-pdf-btn-answers" title="Descargar Solucionario con respuestas y explicaciones">';
-        echo '<span class="dashicons dashicons-welcome-learn-more"></span> Solucionario';
+        echo '<a href="#" class="spn-pdf-btn spn-pdf-btn-export" ' .
+             'data-test-url="' . esc_url($test_url) . '" ' .
+             'data-sol-url="' . esc_url($solucion_url) . '" ' .
+             'data-filename-base="' . esc_attr(sanitize_title($title)) . '" ' .
+             'title="Exportar Test y Solucionario (aleatorios)">';
+        echo '<span class="dashicons dashicons-pdf"></span> Exportar PDF';
         echo '</a>';
         echo '</div>';
     }
@@ -55,9 +58,10 @@ function spn_ttp_render_pdf_columns($column, $post_id) {
  */
 add_action('admin_enqueue_scripts', 'spn_ttp_enqueue_admin_assets');
 function spn_ttp_enqueue_admin_assets($hook) {
-    global $post_type;
-    if ($hook === 'edit.php' && in_array($post_type, ['test', 'simulacro'])) {
+    $screen = get_current_screen();
+    if ($hook === 'edit.php' && $screen && in_array($screen->post_type, ['test', 'simulacro'])) {
         wp_enqueue_style('spn-test-to-pdf-admin', SPN_TTP_URL . 'assets/css/admin.css', [], '1.0.0');
+        wp_enqueue_script('spn-test-to-pdf-admin-js', SPN_TTP_URL . 'assets/js/admin.js', ['jquery'], '1.0.0', true);
     }
 }
 
@@ -139,6 +143,11 @@ function spn_ttp_handle_pdf_generation() {
         }
     }
     
+    // Aleatorizar si se proporciona una semilla (seed)
+    if (isset($_GET['seed']) && is_numeric($_GET['seed'])) {
+        spn_ttp_seeded_shuffle($questions, intval($_GET['seed']));
+    }
+    
     // 7. Preparar variables para la plantilla PDF
     $title = get_the_title($post);
     $type = ($post->post_type === 'simulacro') ? 'Simulacro' : 'Test';
@@ -187,6 +196,9 @@ function spn_ttp_handle_pdf_generation() {
         }
         
         $suffix = $with_answers ? '-solucionario' : '-examen';
+        if (isset($_GET['seed']) && is_numeric($_GET['seed'])) {
+            $suffix .= '-aleatorio';
+        }
         $filename = sanitize_title($title) . $suffix . '.pdf';
         
         // Transmitir descarga directa
@@ -223,5 +235,19 @@ function spn_number_to_words_es($number) {
         return $map[$tens] . ' y ' . $map[$units];
     }
     return (string)$number;
+}
+
+/**
+ * Mezclar un array de forma determinista usando una semilla numérica (algoritmo Fisher-Yates)
+ */
+function spn_ttp_seeded_shuffle(&$items, $seed) {
+    mt_srand($seed);
+    $size = count($items);
+    for ($i = $size - 1; $i > 0; $i--) {
+        $j = mt_rand(0, $i);
+        $tmp = $items[$i];
+        $items[$i] = $items[$j];
+        $items[$j] = $tmp;
+    }
 }
 

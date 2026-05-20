@@ -2,7 +2,7 @@
  * Estilos para los botones de exportación a PDF en el listado de CPT
  */
 .column-spn_pdf_actions {
-    width: 250px !important;
+    width: 160px !important;
 }
 
 .spn-pdf-actions-wrapper {
@@ -16,9 +16,9 @@
     align-items: center;
     justify-content: center;
     gap: 6px;
-    padding: 5px 10px;
+    padding: 5px 12px;
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.5;
     text-decoration: none;
     border-radius: 4px;
@@ -35,32 +35,42 @@
     line-height: 16px;
 }
 
-/* Botón: Descargar Test (Sin Respuestas) */
-.spn-pdf-btn-test {
-    background-color: #2c3e50;
+/* Botón único: Exportar PDF (Con y Sin Respuestas) */
+.spn-pdf-btn-export {
+    background-color: #3b82f6; /* Azul moderno */
     color: #ffffff !important;
-    border-color: #2c3e50;
+    border-color: #3b82f6;
 }
 
-.spn-pdf-btn-test:hover, 
-.spn-pdf-btn-test:focus {
-    background-color: #1a252f;
-    border-color: #1a252f;
+.spn-pdf-btn-export:hover, 
+.spn-pdf-btn-export:focus {
+    background-color: #2563eb;
+    border-color: #2563eb;
     transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-/* Botón: Descargar Solucionario */
-.spn-pdf-btn-answers {
-    background-color: #27ae60;
+@keyframes spn-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.spn-pdf-btn .dashicons.spin {
+    animation: spn-spin 1.5s linear infinite;
+    display: inline-block;
+}
+
+/* Botón de solucionario pendiente (Paso 2) */
+.spn-pdf-btn-export.spn-sol-pending {
+    background-color: #f59e0b; /* Color naranja/ámbar moderno */
+    border-color: #f59e0b;
     color: #ffffff !important;
-    border-color: #27ae60;
 }
 
-.spn-pdf-btn-answers:hover, 
-.spn-pdf-btn-answers:focus {
-    background-color: #219653;
-    border-color: #219653;
+.spn-pdf-btn-export.spn-sol-pending:hover, 
+.spn-pdf-btn-export.spn-sol-pending:focus {
+    background-color: #d97706;
+    border-color: #d97706;
     transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
